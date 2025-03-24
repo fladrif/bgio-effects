@@ -26,15 +26,15 @@ const game = {
   setup: () => ({ roll: 1, score: 0 }),
 
   moves: {
-    roll: (G, ctx) => {
-      const roll = ctx.random.D6();
+    roll: ({ G, random }) => {
+      const roll = random.D6();
       G.roll = roll;
       if (roll === 6) G.score++;
     },
   },
 
   // End the game when the player has scored 5 points.
-  endIf: (G) => G.score >= 5,
+  endIf: ({ G }) => G.score >= 5,
 };
 ```
 
@@ -154,16 +154,16 @@ const game = {
   setup: () => ({ roll: 1, score: 0 }),
 
   moves: {
-    roll: (G, ctx) => {
-      const roll = ctx.random.D6();
+    roll: ({ G, random, effects }) => {
+      const roll = random.D6();
       // Call the newly added roll effect.
-      ctx.effects.roll(roll);
+      effects.roll(roll);
       G.roll = roll;
       if (G.roll === 6) G.score++;
     },
   },
 
-  endIf: (G) => G.score >= 5,
+  endIf: ({ G }) => G.score >= 5,
 };
 ```
 

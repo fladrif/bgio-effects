@@ -12,8 +12,8 @@ export const BaseGame: Game<G> = {
     score: 0,
   }),
   moves: {
-    roll: (G: G, ctx): void => {
-      G.roll = ctx.random.D6();
+    roll: ({ G: G, random }): void => {
+      G.roll = random.D6();
       if (G.roll === 6) G.score++;
     },
   },
@@ -33,9 +33,9 @@ export const GameWithRollEffect: Game<G> = {
   plugins: [EffectsPlugin(baseEffectsConfig)],
   moves: {
     ...BaseGame.moves,
-    roll: (G, ctx) => {
-      G.roll = ctx.random.D6();
-      ctx.effects.roll(G.roll);
+    roll: ({ G, random, effects }) => {
+      G.roll = random.D6();
+      effects.roll(G.roll);
       if (G.roll === 6) G.score++;
     },
   },
@@ -55,9 +55,9 @@ export const GameWithTimedRollEffect: Game<G> = {
   plugins: [EffectsPlugin(timedEffectsConfig)],
   moves: {
     ...BaseGame.moves,
-    roll: (G, ctx) => {
-      G.roll = ctx.random.D6();
-      ctx.effects.roll(G.roll);
+    roll: ({ G, random, effects }) => {
+      G.roll = random.D6();
+      effects.roll(G.roll);
       if (G.roll === 6) G.score++;
     },
   },

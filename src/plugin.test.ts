@@ -103,23 +103,20 @@ describe('Plugin API', () => {
 });
 
 describe('boardgame.io integration', () => {
-  const game: Game<
-    Record<string, never>,
-    Ctx & EffectsCtxMixin<typeof config>
-  > = {
+  const game: Game<Record<string, never>, EffectsCtxMixin<typeof config>> = {
     name: 'fx-test',
 
     plugins: [EffectsPlugin(config)],
 
     moves: {
-      A: (_, ctx) => {
+      A: (ctx) => {
         ctx.effects.rollDie(5);
       },
-      B: (_, ctx) => ctx.effects.dumb(),
+      B: (ctx) => ctx.effects.dumb(),
     },
 
     turn: {
-      onMove: (_, ctx) => ctx.effects.alert('^0', 0.5),
+      onMove: (ctx) => ctx.effects.alert('^0', 0.5),
     },
   };
 

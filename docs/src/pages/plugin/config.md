@@ -50,16 +50,16 @@ const game = {
   // Each effect type declared in your config will
   // be available in your moves as ctx.effects[effectType]
   moves: {
-    roll: (G, ctx) => {
-      const roll = ctx.random.D6();
-      ctx.effects.rollDie(roll);
+    roll: ({ G, random, effects }) => {
+      const roll = random.D6();
+      effects.rollDie(roll);
       if (roll > 4) ctx.effects.explode();
       G.roll = roll;
     },
 
-    end: (G, ctx) => {
-      ctx.events.endTurn();
-      ctx.effects.endTurn();
+    end: ({ G, events, effects }) => {
+      events.endTurn();
+      effects.endTurn();
     },
   },
 };

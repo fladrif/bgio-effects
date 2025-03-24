@@ -21,8 +21,8 @@ npm i bgio-effects
 Call effects from your moves or other game code:
 
 ```js
-function move(G, ctx) {
-  ctx.effects.explode();
+function move({ G, effects }) {
+  effects.explode();
 }
 ```
 
