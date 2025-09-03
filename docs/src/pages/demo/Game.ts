@@ -17,24 +17,21 @@ const effectsConfig = {
 
 export type EffectsConfig = typeof effectsConfig;
 
-const game: Game<
-  Record<string, never>,
-  Ctx & EffectsCtxMixin<EffectsConfig>
-> = {
+const game: Game<Record<string, never>, Ctx & EffectsCtxMixin<EffectsConfig>> = {
   plugins: [EffectsPlugin(effectsConfig)],
   moves: {
-    One: (_, ctx) => {
-      ctx.effects.A('one');
-      ctx.effects.A('two', '<+0.5');
-      ctx.effects.B('hello', '<+0.5');
-      ctx.effects.A('three', '<+0.25');
-      ctx.effects.B('world', '<+0.5');
+    One: ({ effects }) => {
+      effects.A('one');
+      effects.A('two', '<+0.5');
+      effects.B('hello', '<+0.5');
+      effects.A('three', '<+0.25');
+      effects.B('world', '<+0.5');
     },
-    Two: (_, ctx) => {
-      ctx.effects.A('synch-');
-      ctx.effects.B('ronise', '<');
-      ctx.effects.A('effects', '<+0.5');
-      ctx.effects.B('FX!', '<');
+    Two: ({ effects }) => {
+      effects.A('synch-');
+      effects.B('ronise', '<');
+      effects.A('effects', '<+0.5');
+      effects.B('FX!', '<');
     },
   },
 };

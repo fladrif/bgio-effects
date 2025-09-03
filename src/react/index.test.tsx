@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import type { Game, Ctx } from 'boardgame.io';
+import type { Game } from 'boardgame.io';
 import { Client, BoardProps } from 'boardgame.io/react';
 import {
   EffectsBoardWrapper,
@@ -67,21 +67,21 @@ enum GVal {
 
 type G = { val?: GVal };
 
-const game: Game<G, Ctx & EffectsCtxMixin<typeof config>> = {
+const game: Game<G, EffectsCtxMixin<typeof config>> = {
   plugins: [EffectsPlugin(config)],
   moves: {
-    simple(G) {
+    simple({ G }) {
       G.val = GVal.simple;
     },
-    wEffects(G, ctx) {
+    wEffects({ G, effects }) {
       G.val = GVal.wEffects;
-      ctx.effects.longEffect('1');
-      ctx.effects.shortEffect('2');
+      effects.longEffect('1');
+      effects.shortEffect('2');
     },
-    repeatEffects(G, ctx) {
+    repeatEffects({ G, effects }) {
       G.val = GVal.repeatEffects;
-      ctx.effects.shortEffect('2');
-      ctx.effects.shortEffect('2');
+      effects.shortEffect('2');
+      effects.shortEffect('2');
     },
   },
 };
