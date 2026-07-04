@@ -20,7 +20,7 @@
     "prettier": "prettier --write --single-quote src",
     "pretest": "npm run lint",
     "test": "jest --coverage --collectCoverageFrom=src/**/*",
-    "prepare": "husky install",
+    "prepare": "husky install || true && npm run build",
     "predocs:build": "rm -f bgio-effects-*.tgz && npm run build && npm pack && cd docs && npm i ../bgio-effects-*.tgz && npm i",
     "docs:build": "cd docs && npm run build"
   },
